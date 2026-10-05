@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پودمان اول: تایپ و صفحه‌آرایی متن سفارشی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f9;--card:#fff;--ink:#14213d;--mute:#5b6b85;--a:#1d4ed8;--b:#0f9d8a;--c:#f59e0b;--line:#dbe4f0}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--ink);line-height:2}
+#bar{position:fixed;top:0;right:0;height:4px;background:linear-gradient(90deg,var(--a),var(--b));width:0;z-index:20}
+header{background:linear-gradient(135deg,#0b1f5c,#1d4ed8 60%,#0f9d8a);color:#fff;padding:64px 20px 90px;text-align:center;position:relative;overflow:hidden}
+header:before,header:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.07)}
+header:before{width:340px;height:340px;top:-120px;left:-80px}
+header:after{width:240px;height:240px;bottom:-110px;right:-60px}
+.logo{width:96px;height:112px;margin:0 auto 18px;background:#fff;border-radius:10px;position:relative;box-shadow:0 14px 30px rgba(0,0,0,.3);display:grid;place-items:center;font:800 54px/1 Arial,sans-serif;color:var(--a)}
+.logo:before{content:"";position:absolute;top:0;right:0;border-width:0 0 22px 22px;border-style:solid;border-color:#c9d6f2 #c9d6f2 transparent transparent;border-radius:0 10px 0 0}
+h1{font-size:clamp(26px,5vw,46px);font-weight:800;line-height:1.5}
+header p{opacity:.9;font-size:18px;margin-top:6px}
+.units{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.units a{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;text-decoration:none;padding:8px 22px;border-radius:40px;font-weight:600}
+.units a:hover,.units a:focus-visible{background:#fff;color:var(--a);outline:none}
+main{max-width:980px;margin:-48px auto 0;padding:0 16px 60px;position:relative}
+.intro{background:var(--card);border-radius:18px;padding:26px 30px;box-shadow:0 10px 30px rgba(20,33,61,.08);margin-bottom:34px}
+.intro b{color:var(--a)}
+.uh{display:flex;align-items:center;gap:14px;margin:44px 0 18px}
+.uh span{background:var(--ink);color:#fff;border-radius:12px;padding:2px 14px;font-weight:800;white-space:nowrap}
+.uh h2{font-size:24px;font-weight:800}
+.uh i{flex:1;height:2px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.card{background:var(--card);border-radius:16px;padding:20px 20px 18px;border:1px solid var(--line);border-top:5px solid var(--c1,var(--a));display:flex;flex-direction:column;gap:6px}
+.card:hover{box-shadow:0 12px 28px rgba(20,33,61,.12)}
+.top{display:flex;align-items:center;gap:12px}
+.ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--c2,#e3ecff);flex:none}
+.top h3{font-size:17px;font-weight:800;line-height:1.7}
+.top small{display:block;color:var(--mute);font-size:12px;font-weight:600;line-height:1.4}
+.card p{color:#33415c;font-size:15px}
+.path{direction:ltr;text-align:left;font:600 13px/1.6 Consolas,monospace;background:#0f1b3d;color:#9fe8dc;border-radius:8px;padding:6px 12px;margin-top:4px}
+.keys{display:flex;gap:6px;flex-wrap:wrap;direction:ltr;justify-content:flex-end}
+kbd{font:700 12px Consolas,monospace;background:#f4f6fb;border:1px solid #b9c5dc;border-bottom-width:3px;border-radius:6px;padding:0 9px}
+ul{padding-right:20px;color:#33415c;font-size:14.5px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags em{font-style:normal;font-size:13px;background:#eef3ff;color:var(--a);border-radius:20px;padding:0 12px}
+.sum{background:var(--ink);color:#fff;border-radius:18px;padding:28px 32px;margin-top:46px}
+.sum h2{margin-bottom:10px}
+.sum ul{columns:2 280px;color:#dbe4f5;font-size:15.5px;list-style:"✔  "}
+footer{text-align:center;color:var(--mute);padding:0 0 40px;font-size:14px}
+@media(max-width:600px){.intro,.sum{padding:20px}}
+@media print{#bar,.units{display:none}.card{break-inside:avoid}}
+/* ===== v2: animations + images ===== */
+header{background:linear-gradient(120deg,#0b1f5c,#1d4ed8,#0f9d8a,#1d4ed8,#0b1f5c);background-size:300% 300%;animation:flow 14s ease-in-out infinite}
+@keyframes flow{50%{background-position:100% 50%}}
+.orb{position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.o1{width:180px;height:180px;background:radial-gradient(circle at 30% 30%,#7dd3fc88,#1d4ed800 70%);top:30px;right:8%}
+.o2{width:260px;height:260px;background:radial-gradient(circle at 30% 30%,#5eead488,#0f9d8a00 70%);bottom:-40px;left:10%}
+.logo{animation:float 5s ease-in-out infinite,pop 1s cubic-bezier(.2,1.4,.3,1) both;position:relative;z-index:2}
+@keyframes float{50%{transform:translateY(-14px) rotate(-3deg)}}
+@keyframes pop{from{transform:scale(0) rotate(-120deg);opacity:0}}
+h1{position:relative;z-index:2}
+h1 .w{display:inline-block;opacity:0;transform:translateY(40px) rotateX(-70deg);animation:word .9s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes word{to{opacity:1;transform:none}}
+header p,.units,.stats{position:relative;z-index:2;opacity:0;animation:fade .9s .9s ease forwards}
+.units{animation-delay:1.1s}.stats{animation-delay:1.3s}
+@keyframes fade{from{transform:translateY(20px)}to{opacity:1;transform:none}}
+.stats{display:flex;gap:26px;justify-content:center;margin-top:30px}
+.stats b{display:block;font-size:34px;font-weight:800;line-height:1.3}
+.stats span{font-size:13px;opacity:.8}
+.units a{transition:transform .3s cubic-bezier(.2,1.4,.3,1),background .3s,color .3s}
+.units a:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 10px 24px rgba(0,0,0,.3)}
+.intro{animation:fade .9s 1.4s ease both}
+#bar{box-shadow:0 0 12px var(--b)}
+.uh{opacity:0;transform:translateX(60px);transition:opacity .8s,transform .8s cubic-bezier(.2,.9,.2,1)}
+.uh.in{opacity:1;transform:none}
+.uh i{transform:scaleX(0);transform-origin:right;transition:transform 1.2s .3s cubic-bezier(.2,.9,.2,1)}
+.uh.in i{transform:none}
+.cw{opacity:0;transform:translateY(60px) scale(.94);filter:blur(6px);transition:opacity .8s cubic-bezier(.2,.9,.2,1),transform .8s cubic-bezier(.2,.9,.2,1),filter .8s;transition-delay:calc(var(--d,0)*90ms);perspective:900px}
+.cw.in{opacity:1;transform:none;filter:none}
+.card{padding:0;gap:0;overflow:hidden;height:100%;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,box-shadow .4s;position:relative;transform-style:preserve-3d}
+.card:hover{box-shadow:0 22px 46px rgba(20,33,61,.2)}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.55),transparent 60%);opacity:0;transition:opacity .3s;z-index:3;pointer-events:none}
+.card:hover:before{opacity:1}
+.ph{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(110deg,var(--c2) 30%,#fff 50%,var(--c2) 70%);background-size:200% 100%;animation:shim 1.4s linear infinite;display:grid;place-items:center;font-size:56px}
+.ph.ok{animation:none;background:var(--c2)}
+@keyframes shim{to{background-position:-200% 0}}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.15);transition:opacity .8s,transform 1.2s cubic-bezier(.2,.9,.2,1)}
+.ph.ok img{opacity:1;transform:scale(1)}
+.card:hover .ph.ok img{transform:scale(1.1)}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,50,.55),transparent 55%)}
+.ph .num{position:absolute;bottom:10px;right:14px;z-index:2;color:#fff;font-weight:800;font-size:13px;background:var(--c1);border-radius:20px;padding:0 12px;line-height:1.9}
+.ph .ic{position:absolute;bottom:-23px;left:16px;z-index:4;box-shadow:0 8px 18px rgba(0,0,0,.2);transition:transform .5s cubic-bezier(.2,1.6,.3,1)}
+.card:hover .ph .ic{transform:rotate(-12deg) scale(1.15)}
+.body{padding:30px 20px 18px;display:flex;flex-direction:column;gap:8px}
+.body h3{font-size:17px;font-weight:800;line-height:1.7}
+.body p{color:#33415c;font-size:15px}
+.tags em{transition:transform .25s}.tags em:hover{transform:translateY(-3px)}
+kbd{transition:transform .15s,border-bottom-width .15s}kbd:hover{transform:translateY(2px);border-bottom-width:1px}
+.path{position:relative;overflow:hidden}
+.path:after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:sweep 3.5s ease-in-out infinite}
+@keyframes sweep{60%,100%{left:130%}}
+.sum{opacity:0;transform:translateY(50px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
+.sum.in{opacity:1;transform:none}
+.sum li{opacity:0;transform:translateX(30px);transition:all .6s calc(var(--d,0)*70ms) cubic-bezier(.2,.9,.2,1)}
+.sum.in li{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.cw,.uh,.sum,.sum li,header p,.units,.stats,h1 .w{opacity:1!important;transform:none!important;filter:none!important}}
+@media(hover:none){.card{transform:none!important}}
+/* ===== v3: steps + desktop ===== */
+#nav{position:fixed;top:4px;right:0;left:0;z-index:19;display:flex;align-items:center;gap:12px;padding:10px max(16px,calc(50% - 600px));background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 6px 24px rgba(20,33,61,.1);transform:translateY(-120%);transition:transform .5s cubic-bezier(.2,.9,.2,1)}
+#nav.on{transform:none}
+#nav b{font-weight:800;margin-left:auto}
+#nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:14px;padding:2px 14px;border-radius:20px;transition:background .25s,color .25s}
+#nav a:hover{background:var(--a);color:#fff}
+#nav input{font:inherit;font-size:14px;border:1px solid var(--line);border-radius:20px;padding:2px 16px;width:200px;outline:none;transition:width .35s,border-color .3s,box-shadow .3s}
+#nav input:focus{width:260px;border-color:var(--a);box-shadow:0 0 0 4px #1d4ed822}
+#nav button{font:inherit;font-size:13px;font-weight:600;border:0;background:var(--ink);color:#fff;border-radius:20px;padding:2px 16px;cursor:pointer;transition:transform .25s}
+#nav button:hover{transform:scale(1.06)}
+.grid{align-items:start}
+.card{height:auto}
+.tg{margin-top:8px;font:inherit;font-size:14px;font-weight:700;color:var(--c1);background:var(--c2);border:0;border-radius:12px;padding:6px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:filter .25s}
+.tg:hover{filter:brightness(.96)}
+.tg i{width:9px;height:9px;border:solid var(--c1);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translateY(-2px);transition:transform .4s cubic-bezier(.2,1.4,.3,1)}
+.tg[aria-expanded=true] i{transform:rotate(225deg)}
+.st{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.9,.2,1)}
+.st.open{grid-template-rows:1fr}
+.st>div{overflow:hidden}
+.st ol{list-style:none;counter-reset:s;padding:10px 0 2px;margin:0}
+.st li{counter-increment:s;position:relative;padding:2px 40px 2px 0;margin-bottom:6px;font-size:14.5px;color:#33415c;opacity:0;transform:translateX(24px);transition:opacity .45s,transform .45s}
+.st.open li{opacity:1;transform:none}
+.st li:not(.tip):before{content:counter(s);position:absolute;right:0;top:3px;width:26px;height:26px;border-radius:50%;background:var(--c1);color:#fff;font:700 12px/26px Vazirmatn,sans-serif;text-align:center}
+.st li.tip{background:#fff7de;border-right:4px solid var(--c);border-radius:8px;padding:6px 12px;color:#6b4b00}
+@media(min-width:900px){
+ main{max-width:1240px;padding:0 32px 80px}
+ .grid{grid-template-columns:repeat(3,1fr);gap:26px}
+ .intro{font-size:19px;padding:34px 44px}
+ header{padding:96px 20px 120px}
+ .logo{width:120px;height:140px;font-size:68px}
+ .uh h2{font-size:30px}.uh span{font-size:18px;padding:4px 18px}
+ .body h3{font-size:19px}.body p{font-size:15.5px}
+ .card:hover{transform:translateY(-6px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+}
+@media(min-width:1500px){main{max-width:1380px}}
+@media(max-width:700px){#nav input,#nav b{display:none}#nav{justify-content:center}}
+/* ===== v4: row layout on desktop ===== */
+.ph .ic{bottom:12px;left:14px}
+.body{padding-top:20px}
+.why{background:var(--c2);border-radius:12px;padding:8px 14px;font-size:14.5px;color:#243049;line-height:1.95}
+.why b{color:var(--c1)}
+@media(min-width:900px){
+ .grid{display:flex;flex-direction:column;gap:30px}
+ .cw{width:100%;transition-delay:0ms}
+ .card{display:grid;grid-template-columns:minmax(300px,34%) 1fr;border-top:1px solid var(--line);border-right:7px solid var(--c1);transform:none;border-radius:20px}
+ .card:hover{transform:translateY(-4px);box-shadow:0 22px 46px rgba(20,33,61,.16)}
+ .ph{aspect-ratio:auto;height:100%;min-height:300px}
+ .ph .ic{width:56px;height:56px;font-size:28px;bottom:16px;left:18px}
+ .ph .num{bottom:16px;right:18px;font-size:14px}
+ .body{padding:30px 38px 30px;gap:14px}
+ .body h3{font-size:24px}
+ .body p{font-size:16.5px;line-height:2.1}
+ .why{font-size:16px;padding:12px 18px}
+ .path{align-self:flex-start;max-width:100%;font-size:14px;padding:6px 16px}
+ .keys{justify-content:flex-start}
+ kbd{font-size:13.5px;padding:1px 11px}
+ .tg,#all{display:none}
+ .st{grid-template-rows:1fr}
+ .st li{opacity:1;transform:none;transition:none}
+ .st ol{columns:2 320px;column-gap:40px;padding-top:6px}
+ .st ol:before{content:"مراحل انجام";display:block;column-span:all;font-weight:800;color:var(--c1);font-size:17px;margin-bottom:8px;border-bottom:2px dashed var(--line)}
+ .st li{break-inside:avoid;font-size:15.5px}
+ .st li:not(.tip):before{width:28px;height:28px;font-size:13px;line-height:28px}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<nav id="nav"><b>📘 پودمان اول — Word 2024</b><a href="#u1">واحد ۱</a><a href="#u2">واحد ۲</a><input id="q" type="search" placeholder="جست‌وجوی بخش..."><button id="all">باز کردن همه مراحل</button></nav>
+<header>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="logo">W</div>
+  <h1>پودمان اول<br>تایپ و صفحه‌آرایی متن سفارشی</h1>
+  <p>آموزش Microsoft Word 2024</p>
+  <div class="stats"><div><b data-to="50">۰</b><span>بخش آموزشی</span></div><div><b data-to="2">۰</b><span>واحد یادگیری</span></div><div><b data-to="41">۰</b><span>مهارت تایپ</span></div></div>
+  <div class="units"><a href="#u1">واحد یادگیری ۱: تایپ متن سفارشی</a><a href="#u2">واحد یادگیری ۲: صفحه‌آرایی</a></div>
+</header>
+<main>
+  <div class="intro"><b>شروع تدریس:</b> توی این پودمان کار با Microsoft Word 2024 رو یاد می‌گیریم. هدفمون فقط تایپ چند خط متن نیست؛ یاد می‌گیریم یک متن رو به شکل درست <b>تایپ، ویرایش، قالب‌بندی</b> و در نهایت برای <b>چاپ یا تبدیل به PDF</b> آماده کنیم.</div>
+  <div class="uh" id="u1"><span>واحد ۱</span><h2>تایپ متن سفارشی</h2><i></i></div>
+  <div class="grid" id="g1"></div>
+  <div class="uh" id="u2"><span>واحد ۲</span><h2>صفحه‌آرایی</h2><i></i></div>
+  <p style="margin-bottom:16px;color:var(--mute)">هدف این بخش: آماده‌کردن متن تایپ‌شده برای یک سند حرفه‌ای، چاپ یا ارائه.</p>
+  <div class="grid" id="g2"></div>
+  <section class="sum">
+    <h2>جمع‌بندی پودمان اول</h2>
+    <ul>
+      <li>یک سند Word ایجاد کنیم</li><li>متن فارسی و انگلیسی تایپ کنیم</li><li>متن را قالب‌بندی کنیم</li><li>فونت و اندازه را تغییر دهیم</li><li>پاراگراف‌ها را تنظیم کنیم</li><li>تصویر و شکل وارد کنیم</li><li>جدول و نمودار ایجاد کنیم</li><li>Header و Footer اضافه کنیم</li><li>شماره صفحه ایجاد کنیم</li><li>متن را جست‌وجو و جایگزین کنیم</li><li>تغییرات سند را مدیریت کنیم</li><li>Comment اضافه کنیم</li><li>از Mail Merge استفاده کنیم</li><li>اندازه و حاشیه صفحه را تنظیم کنیم</li><li>صفحه‌آرایی انجام دهیم</li><li>فهرست مطالب ایجاد کنیم</li><li>سند را برای چاپ یا PDF آماده کنیم</li>
+    </ul>
+  </section>
+</main>
+<footer>پایان پودمان اول — با آرزوی موفقیت</footer>
+<script>
+// [شماره، آیکون، عنوان، توضیح، مسیر، میانبرها، فهرست]
+const U1=[
+[1,"🖥️","آشنایی با محیط Word","با باز کردن Word وارد محیط اصلی برنامه می‌شویم. برای شروع یک سند جدید، Blank Document را انتخاب می‌کنیم.","Word → Blank Document",[],["نوار عنوان","نوار ابزار دسترسی سریع","Ribbon","زبانه‌ها","محیط تایپ","خط‌کش","نوار وضعیت","نوار پیمایش"]],
+[2,"💾","ایجاد و ذخیره سند","بعد از ایجاد سند، محل ذخیره و نام فایل را مشخص می‌کنیم؛ مثلاً Poodman1.docx. فرمت اصلی فایل Word در این نسخه DOCX است.","File → Save As"],
+[3,"⌨️","تایپ فارسی و انگلیسی","در Word می‌توانیم هم‌زمان متن فارسی و انگلیسی تایپ کنیم. مثلاً «سلام» و سپس Hello.","",["Alt","Shift"]],
+[4,"✂️","نیم‌فاصله","در تایپ فارسی بین دو قسمت کلمه، فاصله کامل قرار نمی‌گیرد. نیم‌فاصله متن را مرتب‌تر و استانداردتر نشان می‌دهد.","",[],["می‌روم","می‌شود","خانه‌ها","کتاب‌ها"]],
+[5,"🖱️","انتخاب متن","برای تغییر هر قسمت از متن، اول باید آن را انتخاب کنیم. بعد می‌توانیم:","",[],["تغییر فونت","تغییر اندازه","تغییر رنگ","Bold","Italic","خط زیر متن","تغییر محل قرارگیری"]],
+[6,"🅱️","قالب‌بندی متن","از قسمت Home ویژگی‌های متن را تغییر می‌دهیم. Bold برای ضخیم، Italic برای مورب و Underline برای زیرخط‌دار کردن.","Home → Bold",["Ctrl","B","|","Ctrl","I","|","Ctrl","U"]],
+[7,"🔤","تغییر فونت","نوع فونت را از Font عوض می‌کنیم؛ برای متن فارسی یک فونت مناسب فارسی انتخاب کنید. اندازه از Font Size تغییر می‌کند.","Home → Font"],
+[8,"🎨","رنگ متن","برای تغییر رنگ نوشته، رنگ موردنظر را از Font Color انتخاب می‌کنیم.","Home → Font Color"],
+[9,"↔️","تراز کردن متن","متن چهار حالت اصلی دارد. برای متن فارسی معمولاً راست‌چین و گاهی Justify کاربرد دارد.","",[],["چپ‌چین","وسط‌چین","راست‌چین","Justify"]],
+[10,"↕️","فاصله پاراگراف‌ها","فاصله قبل و بعد پاراگراف و فاصله خطوط را تنظیم می‌کنیم تا متن خواناتر و منظم‌تر شود.","Home → Paragraph"],
+[11,"📋","فهرست شماره‌دار و نشانه‌دار","برای ساخت فهرست از Bullets و Numbering استفاده می‌کنیم.","",[],["کامپیوتر / چاپگر / صفحه‌کلید / ماوس","مرحله اول / دوم / سوم"]],
+[12,"📑","کپی، برش و چسباندن","سه دستور بسیار مهم برای جابه‌جایی و تکرار قسمت‌های متن: Copy، Cut و Paste.","",["Ctrl","C","|","Ctrl","X","|","Ctrl","V"]],
+[13,"🖼️","درج تصویر","بعد از انتخاب تصویر، می‌توان اندازه و محل قرارگیری آن را تنظیم کرد.","Insert → Pictures"],
+[14,"🔷","درج شکل","شکل‌هایی مثل مستطیل، دایره، فلش، خطوط و اشکال مختلف.","Insert → Shapes"],
+[15,"📊","نمودار","نمودار برای نمایش اطلاعات و داده‌ها به شکل تصویری استفاده می‌شود.","Insert → Chart"],
+[16,"🧩","SmartArt","نمایش اطلاعات به شکل نموداری و سازمان‌یافته؛ برای مراحل انجام کار، ساختار سازمانی و ارتباط بین مفاهیم.","Insert → SmartArt"],
+[17,"Ω","نمادها و معادلات","برای وارد کردن نمادهای خاص از Symbol و برای نوشتن معادلات از Equation استفاده می‌شود.","Insert → Symbol / Equation"],
+[18,"🔍","جست‌وجو و جایگزینی","Find برای پیدا کردن کلمه یا عبارت و Replace برای جایگزین کردن آن با عبارت دیگر.","",["Ctrl","F","|","Ctrl","H"]],
+[19,"🧭","Go To","برای رفتن مستقیم به قسمت خاصی از سند.","",["Ctrl","G"]],
+[20,"🖨️","چاپ سند","در این قسمت چاپگر، تعداد نسخه‌ها، صفحات موردنظر و تنظیمات چاپ را مشخص می‌کنیم.","File → Print"],
+[21,"📰","ستون‌بندی متن","متن را می‌توان به یک، دو یا سه ستون تقسیم کرد.","Layout → Columns"],
+[22,"🏷️","سربرگ و پابرگ","سربرگ (Header) در بالای صفحه و پابرگ (Footer) در پایین صفحه قرار می‌گیرد.","Insert → Header & Footer"],
+[23,"🔢","شماره صفحه","برای شماره‌گذاری صفحات؛ می‌توان محل نمایش شماره را مشخص کرد.","Insert → Page Number"],
+[24,"🖌️","حاشیه و پس‌زمینه صفحه","حاشیه صفحه از Page Borders و رنگ یا پس‌زمینه از Page Color تنظیم می‌شود.","Design → Page Borders"],
+[25,"🧮","شمارش کلمات","Word تعداد کلمات و اطلاعات متن را نشان می‌دهد؛ برای وقتی که متن باید تعداد کلمات مشخصی داشته باشد."],
+[26,"🔖","Bookmark","برای مشخص کردن یک قسمت خاص از سند.","Insert → Bookmark"],
+[27,"💧","Watermark","نوشته یا علامت کم‌رنگ در پس‌زمینه صفحات؛ مثلاً عبارت CONFIDENTIAL.","Design → Watermark"],
+[28,"▦","جدول","تعداد سطرها و ستون‌ها را مشخص می‌کنیم. جدول برای مرتب کردن اطلاعات بسیار کاربردی است.","Insert → Table"],
+[29,"✨","WordArt","برای ایجاد نوشته‌های تزئینی؛ مناسب عنوان‌ها و نوشته‌های گرافیکی.","Insert → WordArt"],
+[30,"📝","Track Changes","تغییراتی را که روی سند انجام می‌شود ثبت می‌کند.","Review → Track Changes"],
+[31,"💬","Comments","برای گذاشتن نظر یا توضیح روی قسمت خاصی از متن؛ مخصوصاً در کار گروهی.","Review → New Comment"],
+[32,"⚖️","Compare","برای مقایسه دو نسخه از یک سند و بررسی تفاوت‌های آن‌ها.","Review → Compare"],
+[33,"✅","Accept و Reject","تغییرات ثبت‌شده با Track Changes را می‌توان قبول (Accept) یا رد (Reject) کرد."],
+[34,"🔠","Grammar & Spelling","Word در پیدا کردن بعضی خطاهای املایی و دستوری کمک می‌کند."],
+[35,"🎭","Styles","قالب‌های آماده برای عنوان‌ها و متن؛ قالب‌بندی سند سریع‌تر و منظم‌تر می‌شود.","Home → Styles"],
+[36,"🔗","Links","لینک می‌تواند به یک صفحه اینترنتی، فایل یا قسمت دیگری از سند باشد.","Insert → Link"],
+[37,"👥","همکاری روی سند","Word امکان همکاری، درج نظر و حاشیه‌نویسی روی اسناد را برای کار گروهی فراهم می‌کند."],
+[38,"🛡️","Document Inspector","اطلاعات و بعضی داده‌های موجود در سند را بررسی می‌کند؛ قبل از اشتراک‌گذاری مفید است."],
+[39,"✉️","Mail Merge","وقتی بخواهیم یک متن مشابه را برای افراد مختلف با اطلاعات متفاوت بسازیم؛ مثلاً نامه‌ای که نام گیرنده هر بار عوض می‌شود.","Mailings → Start Mail Merge",[],["ایجاد سند اصلی","انتخاب گیرندگان","وارد کردن فیلدها","مشاهده پیش‌نمایش","تکمیل ادغام"]],
+[40,"📮","Labels و Envelopes","ساخت برچسب‌ها و پاکت نامه.","Mailings → Labels / Envelopes"],
+[41,"🎙️","Dictate","با صحبت کردن، متن را وارد سند می‌کنیم؛ عملکرد آن به زبان و تنظیمات بستگی دارد."]
+];
+const U2=[
+[42,"📐","اندازه صفحه","اندازه‌های مختلف کاغذ در این بخش است و می‌توان اندازه سفارشی هم تعیین کرد.","Layout → Size",[],["وزیری","رقعی","رحلی","خشتی","سلطانی","جیبی","پالتویی"]],
+[43,"🔲","تنظیم حاشیه صفحه","فاصله متن از لبه‌های کاغذ را تنظیم می‌کنیم.","Layout → Margins",[],["بالا","پایین","چپ","راست"]],
+[44,"⚙️","تنظیمات صفحه","برای تنظیم دقیق‌تر، از Page Setup استفاده می‌کنیم؛ اندازه کاغذ و حاشیه‌ها در اینجا تنظیم می‌شوند.","Layout → Page Setup"],
+[45,"✂️","شکست صفحه و بخش‌ها","در اسناد طولانی گاهی لازم است صفحه یا بخش جدید بسازیم: Page Break یا Section Break.","Layout → Breaks"],
+[46,"🏛️","عنوان فصل و Heading","با Heading و Styles ساختار سند مرتب می‌شود. Heading 1 برای عنوان اصلی و Heading 2 برای زیرعنوان.","Home → Styles"],
+[47,"#️⃣","شماره‌گذاری صفحات","در سندهای چندصفحه‌ای، شماره صفحه پیدا کردن صفحات را راحت‌تر می‌کند.","Insert → Page Number"],
+[48,"📌","پاورقی","برای اضافه کردن توضیح یا منبع در پایین صفحه.","References → Insert Footnote"],
+[49,"📚","فهرست مطالب خودکار","اگر عنوان‌ها با Heading تنظیم شده باشند، Word فهرست مطالب می‌سازد و با تغییر صفحات می‌توان آن را به‌روزرسانی کرد.","References → Table of Contents"],
+[50,"📄","خروجی PDF","در پایان سند را به PDF تبدیل می‌کنیم تا ظاهر سند هنگام انتقال به دستگاه‌های دیگر تا حد زیادی ثابت بماند.","File → Export → PDF"]
+];
+const IMG={1:"laptop,computer",2:"harddrive,files",3:"keyboard",4:"typewriter",5:"computer,mouse",6:"notebook,pen",7:"typography,letters",8:"colorful,paint",9:"symmetry,architecture",10:"notebook,lines",11:"checklist",12:"documents,office",13:"camera,photography",14:"geometric,shapes",15:"chart,graph",16:"diagram,flowchart",17:"mathematics,formula",18:"magnifying,glass",19:"compass,map",20:"printer",21:"newspaper",22:"building,facade",23:"book,pages",24:"picture,frame",25:"abacus,counting",26:"bookmark,book",27:"water,drop",28:"table,grid",29:"neon,sign",30:"editing,pencil",31:"sticky,notes",32:"balance,scale",33:"checkmark,approved",34:"dictionary",35:"design,template",36:"chain,link",37:"teamwork,meeting",38:"padlock,security",39:"mail,letters",40:"envelope",41:"microphone",42:"paper,sheets",43:"frame,border",44:"tools,settings",45:"book,pages",46:"headline,newspaper",47:"numbers",48:"library,books",49:"index,library",50:"pdf,document"};
+const cols=[["#1d4ed8","#e3ecff"],["#0f9d8a","#dcf5f0"],["#f59e0b","#fff1d6"],["#7c3aed","#ece4ff"],["#e11d48","#ffe3e9"]];
+const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+const S={
+1:["Word را از منوی Start یا جست‌وجوی ویندوز باز کنید","روی Blank Document کلیک کنید تا صفحه سفید باز شود","بالای صفحه Ribbon و زبانه‌ها (Home، Insert، Layout، ...) را ببینید","پایین صفحه، نوار وضعیت تعداد صفحه و کلمه را نشان می‌دهد","نکته: اگر Ribbon پنهان شد، روی هر زبانه دوبار کلیک کنید."],
+2:["از منوی File گزینه Save As را بزنید","محل ذخیره (مثلاً Desktop) را انتخاب کنید","در کادر File name بنویسید: Poodman1","نوع فایل را Word Document (*.docx) بگذارید و Save را بزنید","نکته: بعد از این، با Ctrl+S سریع ذخیره کنید."],
+3:["زبان کیبورد را پایین سمت راست ویندوز ببینید (FA یا EN)","با Alt+Shift زبان را عوض کنید و بنویسید: سلام","دوباره Alt+Shift بزنید و بنویسید: Hello","نکته: جهت متن را با Ctrl+Shift راست (راست‌به‌چپ) یا Ctrl+Shift چپ (چپ‌به‌راست) عوض کنید."],
+4:["بین دو بخش کلمه، Shift+Space را بزنید","مثال: می + نیم‌فاصله + روم ← می‌روم","اگر کار نکرد: Insert ← Symbol ← More Symbols ← تب Special Characters ← Zero Width Non-Joiner","نکته: نیم‌فاصله پیشوند «می» و پسوند «ها» را از کلمه جدا نمی‌کند ولی شکل چسبیده نمی‌گیرد."],
+5:["کلیک و کشیدن روی متن: انتخاب دلخواه","دوبار کلیک: یک کلمه — سه‌بار کلیک: یک پاراگراف","Ctrl+A: کل سند","بعد از انتخاب، ابزار قالب‌بندی را اعمال کنید"],
+6:["متن را انتخاب کنید","در Home، گروه Font، روی B یا I یا U کلیک کنید","برای برگرداندن، دوباره همان دکمه را بزنید","نکته: میانبرها از دکمه‌ها سریع‌ترند."],
+7:["متن را انتخاب کنید","جعبه Font در Home را باز و فونت فارسی (مثل B Nazanin) را انتخاب کنید","اندازه را از Font Size بگذارید (مثلاً ۱۴)","با دکمه‌های A بزرگ و A کوچک هم می‌توان اندازه را تغییر داد"],
+8:["متن را انتخاب کنید","روی فلش کنار Font Color (حرف A با نوار رنگی) بزنید","رنگ را انتخاب یا از More Colors رنگ دلخواه بسازید"],
+9:["نشانگر را داخل پاراگراف بگذارید","در Home ← Paragraph یکی از چهار دکمه تراز را بزنید","میانبرها: Ctrl+R راست‌چین، Ctrl+L چپ‌چین، Ctrl+E وسط‌چین، Ctrl+J Justify"],
+10:["پاراگراف را انتخاب کنید","فلش کوچک گوشه گروه Paragraph را بزنید","در Spacing مقدار Before و After را بگذارید (مثلاً 6pt)","Line spacing را روی 1.5 lines بگذارید و OK کنید"],
+11:["خطوط فهرست را تایپ و انتخاب کنید","Home ← Paragraph ← Bullets (نشانه‌دار) یا Numbering (شماره‌دار)","با Enter مورد بعدی ساخته می‌شود","با دو بار Enter فهرست تمام می‌شود"],
+12:["متن را انتخاب کنید","Ctrl+C برای کپی (متن می‌ماند) یا Ctrl+X برای برش (متن حذف می‌شود)","نشانگر را به جای جدید ببرید","Ctrl+V را بزنید","نکته: دکمه Paste Options گزینه حفظ قالب یا فقط متن را می‌دهد."],
+13:["نشانگر را جای تصویر بگذارید","Insert ← Pictures ← This Device","فایل عکس را انتخاب و Insert کنید","گوشه‌های عکس را بکشید تا اندازه تغییر کند","از Layout Options کنار عکس، حالت Square را برای قرارگیری کنار متن انتخاب کنید"],
+14:["Insert ← Shapes","شکل را انتخاب کنید","روی صفحه بکشید","از Shape Format رنگ و حاشیه را تنظیم کنید","نکته: با نگه داشتن Shift، دایره و مربع کامل می‌شوند."],
+15:["Insert ← Chart","نوع نمودار (ستونی، دایره‌ای، خطی) را انتخاب و OK کنید","در جدول بازشده اعداد را ویرایش کنید","پنجره را ببندید؛ نمودار در سند می‌ماند","از Chart Design ظاهر نمودار را تغییر دهید"],
+16:["Insert ← SmartArt","دسته (Process، Hierarchy، ...) و طرح را انتخاب و OK کنید","روی [Text] کلیک و متن را بنویسید","با Enter مورد جدید اضافه کنید","از SmartArt Design رنگ و ظاهر را عوض کنید"],
+17:["نماد: Insert ← Symbol ← More Symbols، نماد را انتخاب و Insert کنید","معادله: Insert ← Equation یا کلیدهای Alt+=","از معادله‌های آماده یا ابزار Equation اجزا را کامل کنید"],
+18:["Ctrl+F را بزنید و کلمه را در پنل Navigation بنویسید","همه موارد هایلایت می‌شوند","برای جایگزینی Ctrl+H را بزنید","در Find what کلمه قدیمی و در Replace with کلمه جدید را بنویسید","Replace یا Replace All را بزنید"],
+19:["Ctrl+G را بزنید","نوع مقصد (Page، Bookmark، Heading، ...) را انتخاب کنید","شماره یا نام را بنویسید و Go To را بزنید"],
+20:["File ← Print (یا Ctrl+P)","چاپگر را انتخاب کنید","تعداد نسخه را در Copies بنویسید","در Pages صفحات را بنویسید (مثلاً 1-3)","پیش‌نمایش را ببینید و Print را بزنید"],
+21:["متن را انتخاب کنید","Layout ← Columns","One، Two یا Three را انتخاب کنید","برای خط بین ستون‌ها: More Columns ← تیک Line between"],
+22:["Insert ← Header (یا Footer)","یک طرح انتخاب یا Edit Header را بزنید","متن را بنویسید","برای خروج روی بدنه سند دوبار کلیک یا Close Header and Footer را بزنید"],
+23:["Insert ← Page Number","محل (Top، Bottom، Margins) را انتخاب کنید","یک طرح انتخاب کنید","برای تغییر عدد شروع: Format Page Numbers"],
+24:["Design ← Page Borders","در تب Page Border نوع حاشیه (مثلاً Box)، سبک، رنگ و ضخامت را انتخاب کنید و OK بزنید","برای پس‌زمینه: Design ← Page Color و رنگ را انتخاب کنید"],
+25:["تعداد کلمات پایین صفحه، در نوار وضعیت نوشته می‌شود","برای شمارش فقط یک بخش، اول آن را انتخاب کنید","برای جزئیات بیشتر: Review ← Word Count"],
+26:["نشانگر را جای موردنظر بگذارید یا متن را انتخاب کنید","Insert ← Bookmark","نام (بدون فاصله، مثلاً Part1) را بنویسید و Add را بزنید","برای رفتن به آن: همان پنجره ← انتخاب نام ← Go To"],
+27:["Design ← Watermark","یک نمونه آماده مثل CONFIDENTIAL را بزنید","یا Custom Watermark ← Text watermark و متن دلخواه","فونت و رنگ را انتخاب و OK کنید"],
+28:["Insert ← Table","روی شبکه به اندازه سطر و ستون موردنظر بکشید","در خانه‌ها تایپ کنید و با Tab به خانه بعد بروید","از Table Design سبک جدول را انتخاب کنید"],
+29:["Insert ← WordArt","یک طرح را انتخاب کنید","متن نمونه را با متن خودتان عوض کنید","از Shape Format ← Text Effects سایه و انحنا بدهید"],
+30:["Review ← Track Changes","متن را ویرایش کنید؛ تغییرات با رنگ و خط کنار صفحه ثبت می‌شوند","برای خاموش کردن دوباره همان دکمه را بزنید","نکته: تغییرات تا زمان Accept یا Reject در سند می‌مانند."],
+31:["متن موردنظر را انتخاب کنید","Review ← New Comment","نظر را بنویسید","با Reply پاسخ بدهید و با Delete حذف کنید"],
+32:["Review ← Compare ← Compare","سند اصلی (Original) و سند ویرایش‌شده (Revised) را انتخاب کنید","OK را بزنید","سندی با تفاوت‌ها ساخته می‌شود"],
+33:["روی تغییر موردنظر کلیک کنید","در Review روی Accept (قبول) یا Reject (رد) بزنید","برای همه: Accept All Changes"],
+34:["Review ← Spelling & Grammar (یا F7)","زیر غلط‌های املایی خط قرمز و دستوری خط آبی می‌آید","راست‌کلیک کنید و پیشنهاد را انتخاب کنید","نکته: برای فارسی همه خطاها پیدا نمی‌شوند؛ خودتان هم متن را بخوانید."],
+35:["عنوان را انتخاب کنید","Home ← Styles و Heading 1 یا Title را بزنید","برای تغییر ظاهر: راست‌کلیک روی استایل ← Modify","با تغییر استایل، همه جاهایی که از آن استفاده شده یکسان می‌شوند"],
+36:["متن را انتخاب کنید","Insert ← Link (یا Ctrl+K)","آدرس سایت را در Address بنویسید یا Place in This Document را انتخاب کنید","OK بزنید؛ برای بازکردن Ctrl+کلیک کنید"],
+37:["دکمه Share بالای صفحه را بزنید","ایمیل افراد را وارد کنید","سطح دسترسی (ویرایش یا فقط مشاهده) را انتخاب کنید","با Comments و Track Changes روی سند همکاری کنید"],
+38:["File ← Info","Check for Issues ← Inspect Document","موارد بررسی را انتخاب و Inspect را بزنید","اطلاعات اضافی را با Remove All پاک کنید"],
+39:["متن اصلی نامه را بنویسید","Mailings ← Start Mail Merge ← Letters","Select Recipients: لیست گیرندگان (مثلاً فایل Excel)","Insert Merge Field برای درج نام و مشخصات","Preview Results و بعد Finish & Merge"],
+40:["Mailings ← Labels (یا Envelopes)","آدرس را بنویسید","در Options اندازه برچسب یا پاکت را انتخاب کنید","Print یا New Document را بزنید"],
+41:["Home ← Dictate","اجازه استفاده از میکروفون را بدهید","زبان را انتخاب کنید و صحبت کنید","برای توقف دوباره Dictate را بزنید","نکته: ممکن است به اینترنت نیاز داشته باشد."],
+42:["Layout ← Size","اندازه موردنظر را انتخاب کنید","برای سفارشی: More Paper Sizes","Width و Height را بنویسید و OK کنید"],
+43:["Layout ← Margins","یک طرح آماده (Normal، Narrow، ...) را انتخاب کنید","یا Custom Margins و مقدار بالا، پایین، چپ و راست","OK را بزنید"],
+44:["فلش گوشه گروه Page Setup را بزنید","تب Margins: حاشیه و جهت (Portrait یا Landscape)","تب Paper: اندازه کاغذ","OK را بزنید"],
+45:["نشانگر را محل شکست بگذارید","Layout ← Breaks","Page برای صفحه جدید یا Next Page برای بخش جدید","نکته: Ctrl+Enter سریع صفحه جدید می‌سازد."],
+46:["عنوان فصل را انتخاب کنید","Home ← Styles ← Heading 1","برای زیرعنوان Heading 2","View ← Navigation Pane ساختار سند را نشان می‌دهد"],
+47:["Insert ← Page Number","محل شماره را انتخاب کنید","برای شروع از صفحه دوم: Header & Footer ← Different First Page"],
+48:["نشانگر را کنار کلمه بگذارید","References ← Insert Footnote (یا Alt+Ctrl+F)","شماره درج می‌شود؛ توضیح را پایین صفحه بنویسید"],
+49:["عنوان‌ها را با Heading 1 و 2 تنظیم کنید","نشانگر را جای فهرست بگذارید","References ← Table of Contents و یک طرح را انتخاب کنید","بعد از تغییرات: Update Table"],
+50:["File ← Save As (یا Export)","نوع فایل را PDF بگذارید","نام و محل را مشخص کنید","Save یا Publish را بزنید"]
+};
+function sh(n){const a=S[n];if(!a)return"";return `<button class="tg" aria-expanded="false">چطور انجامش بدیم؟<i></i></button><div class="st"><div><ol>${a.map(x=>x.startsWith("نکته:")?`<li class="tip">💡 ${x.slice(5).trim()}</li>`:`<li>${x}</li>`).join("")}</ol></div></div>`}
+
+const W={1:"قبل از هر کاری باید جای دکمه‌ها و بخش‌های برنامه را بشناسید؛ وقتی محیط را بلد باشید هر ابزار را سریع پیدا می‌کنید و وقتتان هدر نمی‌رود.",2:"ذخیره درست یعنی فایل شما گم نمی‌شود و با قطع برق یا بسته شدن ناگهانی برنامه، کارتان از بین نمی‌رود.",3:"برای نوشتن متن‌هایی که هم کلمه فارسی دارند هم انگلیسی، مثل اسم برنامه‌ها، اصطلاحات و آدرس سایت‌ها.",4:"تایپ فارسی بدون نیم‌فاصله نامرتب است و کلماتی مثل «می‌روم» چسبیده یا غلط دیده می‌شوند. این نکته ظاهر متن را استاندارد می‌کند.",5:"تقریباً همه کارهای Word روی متن انتخاب‌شده اعمال می‌شود؛ پس اولین قدم هر تغییری، انتخاب درست متن است.",6:"برای برجسته کردن عنوان‌ها، کلمات مهم و اصطلاحات تا خواننده با یک نگاه نکات اصلی را ببیند.",7:"فونت و اندازه مناسب خوانایی سند را بالا می‌برد و آن را رسمی‌تر و حرفه‌ای‌تر نشان می‌دهد.",8:"برای تأکید روی بخش‌های مهم یا رنگی کردن عنوان‌ها در جزوه، پوستر و ارائه.",9:"چیدمان درست متن در صفحه؛ مثلاً عنوان وسط‌چین و متن اصلی راست‌چین یا Justify تا سند مرتب به نظر برسد.",10:"جلوگیری از متن فشرده و خسته‌کننده؛ فاصله مناسب باعث می‌شود متن راحت‌تر خوانده شود و چاپ تمیزتری داشته باشد.",11:"برای مرتب کردن موارد پشت‌سرهم مثل لوازم، مراحل کار یا موضوعات یک درس، به‌جای نوشتن در یک پاراگراف طولانی.",12:"جابه‌جایی و تکرار متن بدون تایپ دوباره؛ کار را سریع می‌کند و از خطای تایپی جلوگیری می‌کند.",13:"تصویر سند را جذاب‌تر می‌کند و مفهوم را بهتر می‌رساند؛ مثل جزوه‌ها، گزارش‌ها و بروشورها.",14:"برای رسم کادر، فلش و طرح‌های ساده بدون نیاز به نرم‌افزار جداگانه.",15:"داده‌ها و عددها را به شکل ستون یا دایره نشان می‌دهد تا مقایسه آن‌ها با یک نگاه ممکن شود.",16:"برای نمایش مراحل کار، چارت سازمانی و ارتباط بین مفاهیم، بدون اینکه شکل‌ها را یکی‌یکی بکشید.",17:"برای متن‌های علمی و ریاضی که نماد یا فرمول دارند، مثل √ ، ± و کسرها.",18:"در سندهای طولانی پیدا کردن یک کلمه و تغییر آن در همه جا را در چند ثانیه انجام می‌دهد.",19:"در سند چندصفحه‌ای مستقیم به صفحه یا بخش موردنظر می‌پرید و لازم نیست اسکرول کنید.",20:"قبل از چاپ تنظیمات را درست می‌کنید تا کاغذ و جوهر هدر نرود و خروجی همان باشد که انتظار دارید.",21:"برای شکل روزنامه و مجله، یا کوتاه کردن خطوط طولانی تا متن راحت‌تر خوانده شود.",22:"برای نوشتن نام سند یا نام نویسنده که باید بالا یا پایین همه صفحه‌ها تکرار شود.",23:"پیدا کردن صفحه‌ها در سند چاپی و ارجاع به آن‌ها (مثلاً در فهرست مطالب) را آسان می‌کند.",24:"برای زیباتر شدن صفحه‌هایی مثل جلد، گواهی، دعوت‌نامه و پوستر.",25:"وقتی تکلیف یا مقاله باید تعداد کلمه مشخصی داشته باشد، بدون شمردن دستی متوجه می‌شوید.",26:"برای علامت‌گذاری یک نقطه در سند طولانی تا بعداً سریع به آن برگردید.",27:"برای مشخص کردن وضعیت سند مثل «پیش‌نویس» یا «محرمانه»، یا گذاشتن لوگوی مجموعه پشت متن.",28:"برای مرتب نشان دادن اطلاعات مثل برنامه هفتگی، لیست نمره‌ها یا مقایسه‌ها.",29:"برای تیتر پوستر، جلد و جاهایی که می‌خواهید نوشته شبیه طراحی گرافیکی باشد.",30:"وقتی کسی سند را ویرایش می‌کند، همه تغییرات دیده می‌شود و هیچ چیز بی‌خبر عوض نمی‌شود.",31:"نظر یا سؤال را بدون دست‌زدن به متن اصلی کنار آن می‌نویسید؛ مخصوصاً در کار گروهی و بازبینی.",32:"اگر دو نسخه از یک سند دارید، می‌بینید دقیقاً چه چیزی تغییر کرده است.",33:"بعد از بررسی تغییرات، تصمیم می‌گیرید کدام ویرایش‌ها در متن نهایی بمانند.",34:"خطاهای املایی و دستوری را پیش از تحویل یا چاپ سند پیدا می‌کنید.",35:"ظاهر عنوان‌ها و متن در همه سند یکسان و حرفه‌ای می‌شود و تغییر دادنش هم فقط یک‌بار لازم است.",36:"خواننده با یک کلیک به سایت، فایل یا بخش دیگری از سند می‌رود؛ مناسب سندهای دیجیتال.",37:"چند نفر روی یک سند کار می‌کنند و نظرها و ویرایش‌ها در یک فایل جمع می‌شود.",38:"قبل از فرستادن سند مطمئن می‌شوید اطلاعات شخصی یا نظرهای مخفی در آن نمانده باشد.",39:"برای نامه‌ها، دعوت‌نامه‌ها و گواهی‌هایی که متن ثابت است ولی اسم هر نفر فرق دارد؛ بدون نوشتن دستی تک‌تک.",40:"برای چاپ برچسب آدرس و پاکت نامه به شکل منظم و استاندارد.",41:"وقتی تایپ کردن کند است یا دست‌تان مشغول است، با صحبت کردن متن می‌نویسید.",42:"کاغذ باید با نوع کار شما بخواند؛ کتاب، جزوه و پوستر هر کدام اندازه خودشان را دارند.",43:"حاشیه درست باعث می‌شود متن به لبه کاغذ نچسبد و جای صحافی و برش هم باقی بماند.",44:"تنظیم همه‌چیز مربوط به شکل صفحه (اندازه، حاشیه، جهت) در یک پنجره.",45:"شروع فصل جدید از صفحه جدید، یا تغییر جهت صفحه فقط در یک بخش (مثلاً برای جدول عریض).",46:"ساختار فصل‌ها و زیرفصل‌ها را مشخص می‌کند و پایه ساخت فهرست مطالب خودکار است.",47:"در گزارش و کتاب شماره‌گذاری صفحه برای ارجاع و مرتب‌سازی ضروری است.",48:"توضیح یا منبع را پایین همان صفحه می‌نویسید بدون اینکه جریان متن اصلی قطع شود.",49:"فهرست مطالب بدون تایپ دستی ساخته می‌شود و شماره صفحه‌هایش با تغییر سند به‌روز می‌ماند.",50:"سند به همان شکلی که هست روی هر دستگاهی دیده می‌شود و فونت و چیدمان به‌هم نمی‌ریزد؛ برای ارسال و تحویل ایده‌آل است."};
+
+function build(list,id){
+  document.getElementById(id).innerHTML=list.map(([n,ic,t,d,p,k,l],i)=>{
+    const c=cols[n%cols.length];
+    let keys="";
+    if(k&&k.length){let g=[];k.forEach(x=>x=="|"?g.push("<span style='width:100%'></span>"):g.push(`<kbd>${x}</kbd>`));keys=`<div class="keys">${g.join("")}</div>`}
+    const tg=l?`<div class="tags">${l.map(x=>`<em>${x}</em>`).join("")}</div>`:"";
+    const src=`https://loremflickr.com/640/360/${IMG[n]}?lock=${n}`;
+    return `<div class="cw" style="--d:${i%3}"><article class="card" style="--c1:${c[0]};--c2:${c[1]}"><div class="ph"><span>${ic}</span><img loading="lazy" alt="${t}" src="${src}" onload="this.parentNode.classList.add('ok')"><span class="num">بخش ${fa(n)}</span><div class="ic">${ic}</div></div><div class="body"><h3>${t}</h3><div class="why"><b>🎯 این بخش برای چیه؟</b> ${W[n]||""}</div><p>${d}</p>${p?`<div class="path">${p}</div>`:""}${keys}${tg}${sh(n)}</div></article></div>`;
+  }).join("");
+}
+build(U1,"g1");build(U2,"g2");
+// عنوان: کلمه‌به‌کلمه
+document.querySelector("h1").innerHTML=document.querySelector("h1").innerHTML.split("<br>").map(l=>l.trim().split(" ").map(w=>`<span class="w">${w}</span>`).join(" ")).join("<br>");
+document.querySelectorAll("h1 .w").forEach((w,i)=>w.style.animationDelay=(.35+i*.12)+"s");
+// شماره‌ها
+const st=document.querySelector(".stats");
+st.querySelectorAll("b").forEach(b=>{const to=+b.dataset.to;let s=null;const f=t=>{s=s||t;const p=Math.min((t-s)/1600,1);b.textContent=fa(Math.round(to*(1-Math.pow(1-p,4))));p<1&&requestAnimationFrame(f)};setTimeout(()=>requestAnimationFrame(f),1300)});
+// ظاهر شدن هنگام اسکرول
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".cw,.uh,.sum").forEach(el=>io.observe(el));
+document.querySelectorAll(".sum li").forEach((li,i)=>li.style.setProperty("--d",i));
+// کج‌شدن سه‌بعدی + نور
+document.querySelectorAll(".card").forEach(c=>{
+  c.addEventListener("pointermove",e=>{if(e.pointerType!=="mouse")return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.setProperty("--ry",((x-.5)*-10)+"deg");c.style.setProperty("--rx",((y-.5)*8)+"deg");c.style.setProperty("--mx",x*100+"%");c.style.setProperty("--my",y*100+"%")});
+  c.addEventListener("pointerleave",()=>{c.style.setProperty("--rx","0deg");c.style.setProperty("--ry","0deg")});
+});
+// پارالاکس هدر
+const hd=document.querySelector("header");
+hd.addEventListener("pointermove",e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;hd.querySelectorAll(".orb").forEach((o,i)=>o.style.transform=`translate(${x*(i?-60:60)}px,${y*50}px)`)});
+// نوار پیشرفت
+const bar=document.getElementById("bar");let tk=false;
+addEventListener("scroll",()=>{if(!tk){tk=true;requestAnimationFrame(()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";hd.style.backgroundPositionY=(h.scrollTop*.3)+"px";tk=false})}},{passive:true});
+// مراحل، جست‌وجو، نوار بالا
+document.addEventListener("click",e=>{const b=e.target.closest(".tg");if(!b)return;const o=b.nextElementSibling.classList.toggle("open");b.setAttribute("aria-expanded",o);b.nextElementSibling.querySelectorAll("li").forEach((li,i)=>li.style.transitionDelay=o?(i*70+120)+"ms":"0ms")});
+let allOpen=false;const ab=document.getElementById("all");
+ab.onclick=()=>{allOpen=!allOpen;document.querySelectorAll(".st").forEach((x,k)=>setTimeout(()=>{x.classList.toggle("open",allOpen);x.previousElementSibling.setAttribute("aria-expanded",allOpen);x.querySelectorAll("li").forEach((li,i)=>li.style.transitionDelay=allOpen?(i*60)+"ms":"0ms")},k*25));ab.textContent=allOpen?"بستن همه مراحل":"باز کردن همه مراحل"};
+document.getElementById("q").addEventListener("input",e=>{const v=e.target.value.trim().toLowerCase();document.querySelectorAll(".cw").forEach(c=>{c.style.display=!v||c.textContent.toLowerCase().includes(v)?"":"none"})});
+const nv=document.getElementById("nav");addEventListener("scroll",()=>nv.classList.toggle("on",scrollY>380),{passive:true});
+</script>
+</body>
+</html>
